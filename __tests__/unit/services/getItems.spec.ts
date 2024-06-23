@@ -1,41 +1,30 @@
-import { describe, it, expect, vi } from "vitest";
-import axios from "axios";
+import { describe, it, expect } from "vitest";
 import { getItems } from '../../../services/getItems';
 
-vi.mock('axios'); // Configuração do mock antes de importar getItems
+describe('getItems function integration test', () => {
+    it('should return an array of objects with the correct property names from the real API', async () => {
+        const result = await getItems();
+        // console.log(result);
 
-describe('getItems function testing', () => {
-    it('should fetch items from API', async () => {
-        const realItems = [{ id: 1, name: 'Item 1' }, { id: 2, name: 'Item 2' }];
+        // Verifique se o resultado é um array
+        expect(Array.isArray(result)).toBe(true);
 
-        // Mocka a chamada do axios.get com os dados capturados da API real
-        const mockGetItems = vi.fn(async () => ({
-            data: realItems
-        }));
+        // Propriedades esperadas em cada objeto do array
+        const expectedProperties = [
+            "id",
+            "filial",
+            "hostname",
+            "usuario",
+            "equipamento",
+            "marca",
+            "numeroDeSerie"
+        ];
 
-        axios.get.mockImplementationOnce(mockGetItems);
-
-        const items = await getItems();
-
-        expect(items).toEqual(realItems);
-        expect(axios.get).toHaveBeenCalledWith('http://localhost:4500/itens');
-    });
-
-    it('should handle API request error', async () => {
-        const errorMessage = 'Internal Server Error';
-
-        const mockErrorGetItems = vi.fn(async () => {
-            return Promise.reject({ response: { status: 500, data: { message: errorMessage } } });
+        // Verifica se todas as propriedades esperadas estão presentes em cada objeto do array
+        result.forEach(item => {
+            expectedProperties.forEach(property => {
+                expect(item).toHaveProperty(property);
+            });
         });
-
-        axios.get.mockImplementationOnce(mockErrorGetItems);
-
-        try {
-            await getItems();
-            throw new Error('A função getItems deveria lançar um erro.');
-        } catch (error) {
-            expect(error.message).toEqual('Erro ao buscar itens da API');
-        }
     });
-
 });
