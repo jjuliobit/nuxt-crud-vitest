@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getItems } from '../../../services/getItems';
+import { getItems } from '@/services/getItems';
 
 describe('getItems function integration test', () => {
     it('should return an array of objects with the correct property names from the real API', async () => {
@@ -27,4 +27,5 @@ describe('getItems function integration test', () => {
             });
         });
     });
+
 });

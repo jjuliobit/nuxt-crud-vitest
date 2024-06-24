@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import axios from "axios";
-import { updateItem } from '../../../services/updateItems';
+import { updateItem } from '@/services/updateItems';
 
 vi.mock('axios'); // Configuração do mock antes de importar updateItem
 

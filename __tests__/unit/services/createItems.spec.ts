@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import type { Item } from '@/types/Item';
 import axios from "axios";
-import { createItem } from '../../../services/createItems';
+import { createItem } from '@/services/createItems';
 
 vi.mock('axios');
 
