@@ -1,4 +1,3 @@
-import { describe, it, expect } from "vitest";
 import { getItems } from '@/services/getItems';
 
 describe('getItems function integration test', () => {

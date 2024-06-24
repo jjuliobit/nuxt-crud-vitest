@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_BASE = 'http://localhost:4500/itens'; // URL base da API
 
-export const deleteItem = async (itemId: number): Promise<void> => {
+export const deleteItem = async (itemId: string): Promise<void> => {
     try {
         await axios.delete(`${API_BASE}/${itemId}`);
     } catch (error) {

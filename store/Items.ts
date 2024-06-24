@@ -1,4 +1,3 @@
-// store/items.ts
 import { reactive } from 'vue';
 import axios from 'axios';
 import type { Item } from '@/types/Item';
@@ -8,7 +7,7 @@ interface ItemsStore {
     setItems: (items: Item[]) => void;
     addItem: (item: Item) => void;
     updateItem: (item: Item) => void;
-    deleteItem: (id: number) => void;
+    deleteItem: (id: string) => void;
 }
 
 export const useItemsStore = (): ItemsStore => {
@@ -31,9 +30,13 @@ export const useItemsStore = (): ItemsStore => {
         }
     };
 
-    const deleteItem = (id: number) => {
-        state.items = state.items.filter(item => item.id !== id);
+    const deleteItem = (id: string) => {
+        const index = state.items.findIndex(item => item.id === id);
+        if (index !== -1) {
+            state.items.splice(index, 1);
+        }
     };
+
 
     return {
         items: state.items,

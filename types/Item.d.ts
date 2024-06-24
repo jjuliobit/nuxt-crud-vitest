@@ -1,5 +1,5 @@
 export interface Item {
-    id: number;
+    id: string;
     filial: string;
     hostname: string;
     usuario: string;
